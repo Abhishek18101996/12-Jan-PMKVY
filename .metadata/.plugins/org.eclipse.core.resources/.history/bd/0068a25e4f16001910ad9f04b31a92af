@@ -1,0 +1,106 @@
+package com.skillindia.model;
+
+import java.io.File;
+
+import com.SkillIndia.model.User;
+
+//The particular establishment will be the entity that will provide courses to candidate entity
+public class Establishment {
+
+	//Declarations..
+	private String establishmentUsername;
+	private String establishmentPassword;
+	User establishmentUser = new User(establishmentUsername, establishmentPassword);//Establishment is a User since it will register with its own identity in the organisation
+	private String establishmentName;//The name of the establishment
+	
+	private String EstablishmentType;//determine the type whether engineering or pharmacy
+	private int contact,workingDaysPerWeek;//Contact details and working days of the establishment during course
+	File Contract = new File(EstablishmentType);//The legal signed contract of the establishment entrusted by governing body
+
+	//SuperClass Constructor
+	public Establishment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	//parameterized constructor for registration
+	public Establishment(String establishmentUsername, String establishmentPassword,
+			User establishmentUser, String establishmentName, String establishmentType, int contact,
+			int workingDaysPerWeek, File contract) {
+		super();
+		this.establishmentUsername = establishmentUsername;
+		this.establishmentPassword = establishmentPassword;
+		this.establishmentUser = establishmentUser;
+		this.establishmentName = establishmentName;
+		EstablishmentType = establishmentType;
+		this.contact = contact;
+		this.workingDaysPerWeek = workingDaysPerWeek;
+		Contract = contract;
+	}
+
+	public String getEstablishmentUsername() {
+		return establishmentUsername;
+	}
+
+	public void setEstablishmentUsername(String establishmentUsername) {
+		this.establishmentUsername = establishmentUsername;
+	}
+
+	public String getEstablishmentPassword() {
+		return establishmentPassword;
+	}
+
+	public void setEstablishmentPassword(String establishmentPassword) {
+		this.establishmentPassword = establishmentPassword;
+	}
+
+	public User getEstablishmentUser() {
+		return establishmentUser;
+	}
+
+	public void setEstablishmentUser(User establishmentUser) {
+		this.establishmentUser = establishmentUser;
+	}
+
+	public String getEstablishmentName() {
+		return establishmentName;
+	}
+
+	public void setEstablishmentName(String establishmentName) {
+		this.establishmentName = establishmentName;
+	}
+
+	public String getEstablishmentType() {
+		return EstablishmentType;
+	}
+
+	public void setEstablishmentType(String establishmentType) {
+		EstablishmentType = establishmentType;
+	}
+
+	public int getContact() {
+		return contact;
+	}
+
+	public void setContact(int contact) {
+		this.contact = contact;
+	}
+
+	public int getWorkingDaysPerWeek() {
+		return workingDaysPerWeek;
+	}
+
+	public void setWorkingDaysPerWeek(int workingDaysPerWeek) {
+		this.workingDaysPerWeek = workingDaysPerWeek;
+	}
+
+	public File getContract() {
+		return Contract;
+	}
+
+	public void setContract(File contract) {
+		Contract = contract;
+	}
+	
+	
+}
