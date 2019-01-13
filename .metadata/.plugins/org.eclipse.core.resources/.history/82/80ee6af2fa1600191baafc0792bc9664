@@ -1,0 +1,36 @@
+package Service;
+
+import dao.CandidateDao;
+
+public class CandidateServiceImpl implements  CandidateService {
+
+private 	CandidateDao cdDao;
+	@Override
+	public void addCandidate(Candidate p) {
+		cdDao.addCandidate(p);
+		
+	}
+
+	@Override
+	public void updateCandidate(Candidate p) {
+		cdDao.updateCandidate(p);
+		
+	}
+
+	@Override
+	public List<Candidate> listCandidates() {
+		cdDao.listCandidates();
+	}
+
+	@Override
+	public CandidateDao getCandidateByName(String name) {
+		cdDao.getCandidateByName(name);
+	}
+
+	@Override
+	public void removeCandidate(String name) {
+		cdDao.removeCandidate(name);
+		
+	}
+
+}

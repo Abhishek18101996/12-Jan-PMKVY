@@ -1,5 +1,7 @@
 package com.skillindia.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,11 +10,13 @@ import javax.persistence.Table;
 //The base class user defines the login operations of various user in the organisation
 @Entity
 @Table(name="user")
-public class User {
-	
+public class User implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="Username")
+	@Column(name="Username", unique=true, nullable=false)
 	private String username;
+	@Column(name="PassWord", unique=false, nullable=false)
 	private String password;		//type to be determined later
 	
 	public User() {

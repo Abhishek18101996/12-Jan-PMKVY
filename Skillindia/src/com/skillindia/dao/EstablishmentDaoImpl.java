@@ -1,0 +1,76 @@
+package com.skillindia.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.skillindia.model.Establishment;
+
+public class EstablishmentDaoImpl implements EstablishmentDao{
+
+	private static final Logger logger = 
+			LoggerFactory.getLogger(EstablishmentDaoImpl.class);
+
+			private SessionFactory sessionFactory;
+
+			@Autowired
+			public void setSessionFactory(SessionFactory sf) {
+			this.sessionFactory = sf;
+			}
+
+			@Override
+			public void addEstablishment(Establishment p) {
+			Session session = this.sessionFactory.getCurrentSession();
+			session.persist(p);
+			logger.info("Establishment saved successfully, Establishment Details= " + p);
+			}
+
+			@Override
+			public void updateEstablishment(Establishment p) {
+			Session session = 
+			this.sessionFactory
+			.getCurrentSession();
+			session.update(p);
+			logger.info("Establishment updated successfully, " + "Establishment Details=" + p);
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<Establishment> listEstablishments() {
+			Session session = this.sessionFactory.getCurrentSession();
+			List<Establishment> EstablishmentsList = session.createQuery("from Establishment").list();
+			for (Establishment p : EstablishmentsList) 
+			{
+			logger.info("Establishment List::" + p);
+			}
+			return EstablishmentsList;
+			}
+
+			@Override
+			public Establishment getEstablishmentByName(String name) {
+			Session session = this.sessionFactory.getCurrentSession();
+			Establishment p = (Establishment) session.load(Establishment.class, new String(name));
+			logger.info("Establishment loaded successfully, Establishment details=" + p);
+			return p;
+			}
+
+			@Override
+			public void removeEstablishmentByName(String name) {
+			Session session = this.sessionFactory.getCurrentSession();
+			Establishment p = 
+			(Establishment) session.load(Establishment.class, new String(name));
+			if (null != p) {
+			session.delete(p);
+			}
+			else {
+			logger.error
+			("Establishment NOT deleted, with Establishment Id=" +name);
+			}
+			logger.info("Establishment deleted successfully, Establishment details=" + p);
+			}
+
+}

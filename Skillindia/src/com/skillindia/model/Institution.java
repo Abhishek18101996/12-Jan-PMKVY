@@ -1,11 +1,27 @@
 package com.skillindia.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-//Institution can be any private organization like an engineering college.. 
-public class Institution {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+//Institution can be any private organization like an engineering college.. 
+@Entity
+@Table(name="Institution")
+public class Institution implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="Instituion_Id")
 	private int instituteId; //Institution Id
+	
 	private String instituteName; //Name of the Institution
 	private String typeOfInstitute; //what kind of institute either engineering or pharmacy
 	private int studentPerBranch[]; //No. of students per branch stored in arrays

@@ -1,5 +1,7 @@
 package com.skillindia.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,8 +10,9 @@ import javax.persistence.Table;
 //Every user who is registering with the organisation will have a Address
 @Entity
 @Table(name="Address")
-public class Address {
+public class Address implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	//Declarations
 	@Id
 	@GeneratedValue()

@@ -1,30 +1,31 @@
 package com.skillindia.model;
 
 import java.io.File;
+import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
 import com.skillindia.model.User;
 
 //The particular establishment will be the entity that will provide courses to candidate entity
-@Component
+
 @Entity
 @Table(name = "Establishment")
-public class Establishment {
+public class Establishment implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	// Declarations..
 	private String establishmentUsername;
 	private String establishmentPassword;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	User establishmentUser = new User(establishmentUsername, establishmentPassword);// Establishment is a User since it
 		// will register with its own
 		// identity in the organisation
@@ -42,7 +43,71 @@ public class Establishment {
 	
 	// Address details of candidate
 	private String eHouse_no, eStreet, eCity, eDistrict, eState, eCountry;
+	private int ePincode;
+	
+	// Bank Details of candidate
+	private String EbankName;// Candidate's Bank-Name
+	private String EbankBranch;// Candidate's Bank-Branch
+	private String EbankIFSC;// Candidate's bank IFSC code
+	private String EaccountNumber;// Candidate's Account Number
 
+	@OneToOne(cascade = CascadeType.ALL)
+	BankDetails establishmentBankDetails = new BankDetails(EbankName, EbankBranch, EbankIFSC, EaccountNumber);
+
+	@OneToOne(cascade = CascadeType.ALL)
+	Address establishmentAddress = new Address(eHouse_no, eStreet, eCity, eDistrict, eState, eCountry, ePincode);
+
+	@OneToMany(cascade=CascadeType.ALL)
+	Institution institute = new Institution();
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	Courses course = new Courses();
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	Domain domain = new Domain();
+	
+	public Domain getDomain() {
+		return domain;
+	}
+
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
+
+	public BankDetails getEstablishmentBankDetails() {
+		return establishmentBankDetails;
+	}
+
+	public void setEstablishmentBankDetails(BankDetails establishmentBankDetails) {
+		this.establishmentBankDetails = establishmentBankDetails;
+	}
+
+	public Address getEstablishmentAddress() {
+		return establishmentAddress;
+	}
+
+	public void setEstablishmentAddress(Address establishmentAddress) {
+		this.establishmentAddress = establishmentAddress;
+	}
+
+	public Institution getInstitute() {
+		return institute;
+	}
+
+	public void setInstitute(Institution institute) {
+		this.institute = institute;
+	}
+	
+	public Courses getCourse() {
+		return course;
+	}
+
+	public void setCourse(Courses course) {
+		this.course = course;
+	}
+
+	
 	public String geteHouse_no() {
 		return eHouse_no;
 	}
@@ -131,59 +196,9 @@ public class Establishment {
 		EaccountNumber = eaccountNumber;
 	}
 
-	private int ePincode;
-	// Bank Details of candidate
-	private String EbankName;// Candidate's Bank-Name
-	private String EbankBranch;// Candidate's Bank-Branch
-	private String EbankIFSC;// Candidate's bank IFSC code
-	private String EaccountNumber;// Candidate's Account Number
-
-	@OneToOne(cascade = CascadeType.ALL)
-	BankDetails establishmentBankDetails = new BankDetails(EbankName, EbankBranch, EbankIFSC, EaccountNumber);
-
-	@OneToOne(cascade = CascadeType.ALL)
-	Address establishmentAddress = new Address(eHouse_no, eStreet, eCity, eDistrict, eState, eCountry, ePincode);
-
-	@OneToMany(cascade=CascadeType.MERGE)
-	Institution institute = new Institution();
 	
-	@OneToMany(cascade=CascadeType.MERGE)
-	Courses course = new Courses();
-	
-	// SuperClass Constructor
-	public Establishment() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public String getEstablishmentUsername() {
 		return establishmentUsername;
-	}
-
-	// parameterized constructor for registration
-	public Establishment(String establishmentUsername, String establishmentPassword, String establishmentName,
-			String establishmentType, int contact, int workingDaysPerWeek, File contract, String eHouse_no,
-			String eStreet, String eCity, String eDistrict, String eState, String eCountry, int ePincode,
-			String ebankName, String ebankBranch, String ebankIFSC, String eaccountNumber) {
-		super();
-		this.establishmentUsername = establishmentUsername;
-		this.establishmentPassword = establishmentPassword;
-		this.establishmentName = establishmentName;
-		EstablishmentType = establishmentType;
-		this.contact = contact;
-		this.workingDaysPerWeek = workingDaysPerWeek;
-		Contract = contract;
-		this.eHouse_no = eHouse_no;
-		this.eStreet = eStreet;
-		this.eCity = eCity;
-		this.eDistrict = eDistrict;
-		this.eState = eState;
-		this.eCountry = eCountry;
-		this.ePincode = ePincode;
-		EbankName = ebankName;
-		EbankBranch = ebankBranch;
-		EbankIFSC = ebankIFSC;
-		EaccountNumber = eaccountNumber;
 	}
 
 	public void setEstablishmentUsername(String establishmentUsername) {
@@ -244,6 +259,39 @@ public class Establishment {
 
 	public void setContract(File contract) {
 		Contract = contract;
+	}
+
+
+	// SuperClass Constructor
+		public Establishment() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+	
+	// parameterized constructor for registration
+	public Establishment(String establishmentUsername, String establishmentPassword, String establishmentName,
+			String establishmentType, int contact, int workingDaysPerWeek, File contract, String eHouse_no,
+			String eStreet, String eCity, String eDistrict, String eState, String eCountry, int ePincode,
+			String ebankName, String ebankBranch, String ebankIFSC, String eaccountNumber) {
+		super();
+		this.establishmentUsername = establishmentUsername;
+		this.establishmentPassword = establishmentPassword;
+		this.establishmentName = establishmentName;
+		EstablishmentType = establishmentType;
+		this.contact = contact;
+		this.workingDaysPerWeek = workingDaysPerWeek;
+		Contract = contract;
+		this.eHouse_no = eHouse_no;
+		this.eStreet = eStreet;
+		this.eCity = eCity;
+		this.eDistrict = eDistrict;
+		this.eState = eState;
+		this.eCountry = eCountry;
+		this.ePincode = ePincode;
+		EbankName = ebankName;
+		EbankBranch = ebankBranch;
+		EbankIFSC = ebankIFSC;
+		EaccountNumber = eaccountNumber;
 	}
 
 }

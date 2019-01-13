@@ -1,0 +1,96 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" 
+prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" 
+prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" 
+prefix="form" %>
+<%@ page session="false" %>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Department Page</title>
+<link href="${pageContext.request.contextPath}/WEB-INF/styles/mystyle.css" rel="stylesheet" />
+	<style>
+.error {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>
+	Add a Department
+</h1>
+<c:url var="addAction" value="/department/add" ></c:url>
+<form:form action="${addAction}" 
+	modelAttribute="department">
+<table border="1">
+	<c:if test="${!empty department.name}">
+	<tr>
+		<td>
+			<form:label path="department_Id">
+				<spring:message text="department_Id"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="department_Id" readonly="true" 
+			size="8"  disabled="true" />
+			<form:hidden path="department_Id" />
+		</td> 
+	</tr>
+	</c:if>
+	<tr>
+		<td>
+			<form:label path="departmentName">
+				<spring:message text="Department Name"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="departmentName" />
+			<form:errors path="departmentName" cssClass="errors"></form:errors>
+		</td> 
+	</tr>
+	<tr>
+		<td colspan="2">
+			<c:if test="${!empty department.departmentName}">
+				<input type="submit"
+					value="<spring:message 
+					text="Edit Department"/>" />
+			</c:if>
+			<c:if test="${empty department.departmentName}">
+				<input type="submit"
+					value="<spring:message 
+					text="Add Department"/>" />
+			</c:if>
+		</td>
+	</tr>
+</table>	
+</form:form>
+<br>
+<h3>Departments List</h3>
+<c:if test="${!empty getAllDepartment}">
+	<table class="tg" border="1">
+	<tr>
+		<th width="80">Department ID</th>
+		<th width="120">Department Name</th>
+		<th width="60">Edit</th>
+		<th width="60">Delete</th>
+	</tr>
+	<c:forEach items="${getAllDepartment}" var="department">
+		<tr>
+			<td>${department.department_Id}</td>
+			<td>${department.departmentName}</td>
+			
+			<td><a href="
+			<c:url value='/edit/${department.department_Id}' />" >Edit</a></td>
+			<td><a href="
+			<c:url value='/remove/${department.department_Id}' />" >Delete</a>
+			</td>
+		</tr>
+	</c:forEach>
+	</table>
+</c:if>
+
+</body>
+</html>

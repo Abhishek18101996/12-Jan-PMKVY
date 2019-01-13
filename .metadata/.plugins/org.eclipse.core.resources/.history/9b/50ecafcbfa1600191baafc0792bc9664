@@ -1,0 +1,16 @@
+package Service;
+
+import dao.CandidateDao;
+
+@Service
+public interface CandidateService {
+			public void addCandidate(Candidate p);//insert
+			public void updateCandidate(Candidate p);//update/modify
+			public List<Candidate> listCandidates();//retrieve/listAll
+			public Candidate getCandidateByName(String name);//search
+			public void removeCandidate(String name);//delete/remove
+		}
+
+}
+
+}

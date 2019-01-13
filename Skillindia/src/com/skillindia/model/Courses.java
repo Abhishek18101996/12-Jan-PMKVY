@@ -1,10 +1,21 @@
 package com.skillindia.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Courses {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Courses")
+public class Courses implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	//declarations
+	@Id
+	@Column(name="Course_Id",unique=true)
 	private int courseId;//Id of particular course
 	private String courseName;//Name of the course
 	private String courseDomain;//The domain of the course

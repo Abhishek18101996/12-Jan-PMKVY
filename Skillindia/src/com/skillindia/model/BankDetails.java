@@ -1,5 +1,8 @@
 package com.skillindia.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -7,10 +10,12 @@ import javax.persistence.Table;
 //The class is used to store the bank details of different user
 @Entity
 @Table(name="Bank_Details")
-public class BankDetails {
+public class BankDetails implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	//declaration
 	@Id
+	@Column(name="Bank_Name",unique=false)
 	private String bankName;//Bank-Name
 	private String bankBranch;//Bank-Branch
 	private String bankIFSC;//IFSC code of the bank

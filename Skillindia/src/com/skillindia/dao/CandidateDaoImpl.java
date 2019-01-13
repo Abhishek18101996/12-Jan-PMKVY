@@ -1,0 +1,74 @@
+package com.skillindia.dao;
+
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.skillindia.model.Candidate;
+
+public class CandidateDaoImpl implements CandidateDao {
+
+	private static final Logger logger = LoggerFactory.getLogger(CandidateDaoImpl.class);
+
+	private SessionFactory sessionFactory;
+
+
+	public void setSessionFactory(SessionFactory sf) {
+		this.sessionFactory = sf;
+	}
+
+	@Override
+	public void addCandidate(Candidate p) {
+	Session session = this.sessionFactory.getCurrentSession();
+	session.persist(p);
+	logger.info("Candidate saved successfully, Candidate Details= " + p);
+	}
+
+	@Override
+	public void updateCandidate(Candidate p) {
+	Session session = 
+	this.sessionFactory
+	.getCurrentSession();
+	session.update(p);
+	logger.info("Candidate updated successfully, " + "Candidate Details=" + p);
+	}
+
+	
+	public List<Candidate> listCandidates() {
+	Session session = this.sessionFactory.getCurrentSession();
+	List<Candidate> CandidatesList = session.createQuery("from Candidate").list();
+	for (Candidate p : CandidatesList) 
+	{
+	logger.info("Candidate List::" + p);
+	}
+	return CandidatesList;
+	}
+
+	@Override
+	public Candidate getCandidateByName(String name) {
+	Session session = this.sessionFactory.getCurrentSession();
+	Candidate p = (Candidate) session.load(Candidate.class, new String(name));
+	logger.info("Candidate loaded successfully, Candidate details=" + p);
+	return p;
+	}
+
+	@Override
+	public void removeCandidate(int id) {
+	Session session = this.sessionFactory.getCurrentSession();
+	Candidate p = 
+	(Candidate) session.load(Candidate.class, new Integer(id));
+	if (null != p) {
+	session.delete(p);
+	}
+	else {
+	logger.error
+	("Candidate NOT deleted, with Candidate Id=" +id);
+	}
+	logger.info("Candidate deleted successfully, Candidate details=" + p);
+	}
+
+}

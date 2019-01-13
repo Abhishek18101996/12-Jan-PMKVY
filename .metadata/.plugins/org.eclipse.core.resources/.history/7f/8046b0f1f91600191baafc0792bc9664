@@ -1,0 +1,11 @@
+package dao;
+
+public interface EstablishmentDao {
+
+		public void addEstablishment(Establishment p);//insert
+	public void updateEstablishment(Establishment p);//update/modify
+	public List<Establishment> listEstablishments();//retrieve/listAll
+	public Establishment getEstablishmentByName(String name);//search
+	public void removeEstablishmentByName(int id);//delete/remove
+
+}

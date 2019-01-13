@@ -1,0 +1,12 @@
+package dao;
+
+import java.util.List;
+
+public interface UserDao {
+	
+	public void addUser(User p);//insert
+	public void updateUser(User p);//update/modify
+	public List<User> listUsers();//retrieve/listAll
+	public void removeUser(int id);//delete/remove
+
+}

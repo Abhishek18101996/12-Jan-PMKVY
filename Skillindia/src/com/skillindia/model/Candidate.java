@@ -6,20 +6,17 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-@Component
 @Entity
 @Table(name="MyCandidate")
 //Candidate is a user of the organisation
 public class Candidate implements Serializable{
 
 	//declarations
-	
+	private static final long serialVersionUID = 1L;
+
 	private String candiadteUsername;
 	
 	private String candidatePassword;
@@ -48,6 +45,9 @@ public class Candidate implements Serializable{
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	Address candidateAddress = new Address(cHouse_no, cStreet, cCity, cDistrict, cState, cCountry, cPincode);
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	Courses candidateCourse = new Courses();
 	
 	//parameterized constructor
 	public Candidate(String candidateName, String gender, String contact, String aadhaarNumber,

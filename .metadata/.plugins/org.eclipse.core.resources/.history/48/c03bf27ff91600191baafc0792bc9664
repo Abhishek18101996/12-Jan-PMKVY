@@ -1,0 +1,10 @@
+package dao;
+
+public interface CandidateDao {
+	public void addCandidate(Candidate p);//insert
+	public void updateCandidate(Candidate p);//update/modify
+	public List<Candidate> listCandidates();//retrieve/listAll
+	public Candidate getCandidateByName(String name);//search
+	public void removeCandidate(int id);//delete/remove
+
+}
